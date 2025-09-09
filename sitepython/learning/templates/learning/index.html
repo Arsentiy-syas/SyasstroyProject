@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'learning/css/index.css' %}">
+{% endblock %}
+
+{% block title %}Главная - Изучение Python{% endblock %}
+
+{% block content %}
+<!-- Герой секция -->
+<section class="hero">
+    <div class="hero-background">
+        <div class="hero-shape shape-1"></div>
+        <div class="hero-shape shape-2"></div>
+        <div class="hero-shape shape-3"></div>
+    </div>
+    
+    <div class="container">
+        <div class="hero-content fade-in-up">
+            <h1 class="hero-title">
+                <span class="text-gradient">Освойте Python</span>
+                с нуля до профессионала<br>
+            </h1>
+            <p class="hero-description">
+                Интерактивный курс с практическими заданиями, реальными проектами 
+                и поддержкой сообщества. Все же лучше чем сидеть на парах у Логиновой и Торезы!
+            </p>
+            
+            <div class="hero-actions">
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'users:register' %}" class="btn btn-gradient-primary btn-lg glow">
+                        <span class="btn-icon">🚀</span>
+                        Начать бесплатно
+                    </a>
+                    <a href="{% url 'users:login' %}" class="btn btn-outline-light btn-lg">
+                        <span class="btn-icon">🔑</span>
+                        Войти в аккаунт
+                    </a>
+                {% else %}
+                    <a href="{% url 'lessons' %}" class="btn btn-gradient-primary btn-lg glow">
+                        <span class="btn-icon">📚</span>
+                        Продолжить обучение
+                    </a>
+                {% endif %}
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                </div>
+                <div class="stat">
+                </div>
+                <div class="stat">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Преимущества -->
+<section class="features">
+    <div class="container">
+        <div class="section-header fade-in-up">
+            <h2>Почему выбирают нас</h2>
+            <p>Все что нужно для успешного изучения Python в одном месте</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">📚</div>
+                <h3>Структурированные уроки</h3>
+                <p>Пошаговое изучение от основ до продвинутых тем с постепенным усложнением</p>
+            </div>
+            
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">💻</div>
+                <h3>Практические задания</h3>
+                <p>Закрепляйте знания на интерактивных упражнениях</p>
+            </div>
+            
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">🚀</div>
+                <h3>Быстрый прогресс</h3>
+                <p>Интерактивная среда для мгновенного отслеживания прогресса</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Быстрая навигация -->
+<section class="quick-nav">
+    <div class="container">
+        <div class="section-header fade-in-up">
+            <h2>Начните обучение</h2>
+            <p>Выберите направление для старта вашего пути</p>
+        </div>
+        
+        <div class="nav-cards">
+            <a href="{% url 'lessons' %}" class="nav-card fade-in-up">
+                <div class="nav-card-icon">📖</div>
+                <h3>Уроки Python</h3>
+                <p>10 уроков с постепенным усложнением</p>
+                <div class="nav-card-stats">
+                    <div class="stat">
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="nav-card fade-in-up">
+                <div class="nav-card-icon">⚡</div>
+                <h3>Упражнения</h3>
+                <p>50+ практических заданий для закрепления материала</p>
+                <div class="nav-card-stats">
+                    <div class="stat">
+                    </div>
+                </div>
+            </a>
+            
+            <a href="{% url 'users:profile' %}" class="nav-card fade-in-up">
+                <div class="nav-card-icon">📊</div>
+                <h3>Профиль</h3>
+                <p>Отслеживайте свой прогресс и статистику обучения</p>
+                <div class="nav-card-stats">
+                    <div class="stat">
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Призыв к действию -->
+{% if not user.is_authenticated %}
+<section class="cta">
+    <div class="container">
+        <div class="cta-content fade-in-up">
+            <h2>Присоединяйтесь к сообществу</h2>
+            <p>Более 5000 учеников уже начали свой путь в программировании с нами</p>
+            <div class="cta-actions">
+                <a href="{% url 'users:register' %}" class="btn btn-gradient-primary btn-lg glow">
+                    <span class="btn-icon">✨</span>
+                    Создать аккаунт
+                </a>
+                <a href="{% url 'users:login' %}" class="btn btn-outline-light btn-lg">
+                    <span class="btn-icon">🔑</span>
+                    Уже есть аккаунт?
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

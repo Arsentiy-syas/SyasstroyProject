@@ -1,0 +1,426 @@
+.profile-card::before {
+    display: none;
+}
+
+/* ===== СТИЛИ ПРОФИЛЯ ===== */
+.profile-container {
+    min-height: 80vh;
+    padding: 4rem 0;
+    position: relative;
+}
+
+.profile-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.profile-shape {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.05) 100%);
+    animation: float 6s ease-in-out infinite;
+}
+
+.profile-shape.shape-1 {
+    width: 250px;
+    height: 250px;
+    top: 10%;
+    right: -100px;
+    animation-delay: 0s;
+}
+
+.profile-shape.shape-2 {
+    width: 180px;
+    height: 180px;
+    bottom: 20%;
+    left: -50px;
+    animation-delay: 2s;
+}
+
+.profile-shape.shape-3 {
+    width: 120px;
+    height: 120px;
+    top: 60%;
+    right: 20%;
+    animation-delay: 4s;
+}
+
+/* ===== КОНТЕЙНЕР АВАТАРА ===== */
+.avatar-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-xl);
+    border: 4px solid white;
+    overflow: hidden;
+    position: relative;
+}
+
+.avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.profile-avatar:hover .avatar-image {
+    transform: scale(1.1);
+}
+
+.avatar-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.avatar-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.avatar-change-btn,
+.avatar-save-btn,
+.avatar-cancel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid transparent;
+}
+
+.avatar-change-btn:hover,
+.avatar-save-btn:hover,
+.avatar-cancel-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.avatar-save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.avatar-save-btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* ===== ШАПКА ПРОФИЛЯ ===== */
+.profile-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 2;
+}
+
+.profile-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.profile-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* ===== КОНТЕНТ ПРОФИЛЯ ===== */
+.profile-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.profile-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    padding: 2.5rem;
+    border-radius: 25px;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.profile-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.profile-card-icon {
+    font-size: 2.5rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border-radius: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.profile-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* ===== ИНФОРМАЦИЯ О ПОЛЬЗОВАТЕЛЕ ===== */
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.info-value {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ===== СТАТИСТИКА ===== */
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border-radius: 15px;
+    border: 1px solid var(--border-light);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ===== ДЕЙСТВИЯ ===== */
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-radius: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.logout-form {
+    margin: 0;
+}
+
+/* ===== УВЕДОМЛЕНИЯ ===== */
+.alert {
+    background: linear-gradient(135deg, rgba(72, 187, 120, 0.1) 0%, rgba(56, 161, 105, 0.1) 100%);
+    border: 1px solid rgba(72, 187, 120, 0.2);
+    border-radius: 15px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    transition: opacity 0.5s ease;
+}
+
+.alert-error {
+    background: linear-gradient(135deg, rgba(245, 101, 101, 0.1) 0%, rgba(229, 62, 62, 0.1) 100%);
+    border-color: rgba(245, 101, 101, 0.2);
+}
+
+.alert-icon {
+    font-size: 1.2rem;
+}
+
+.alert-content {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.avatar-messages {
+    width: 100%;
+    max-width: 300px;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 1024px) {
+    .profile-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .profile-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 2rem 0;
+    }
+    
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .profile-title {
+        font-size: 2rem;
+    }
+    
+    .profile-card {
+        padding: 2rem;
+    }
+    
+    .profile-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .stat-item {
+        padding: 1rem;
+    }
+    
+    .avatar-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-card {
+        padding: 1.5rem;
+    }
+    
+    .profile-card-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .btn-action {
+        padding: 0.875rem 1rem;
+        font-size: 0.95rem;
+    }
+    
+    .avatar-change-btn,
+    .avatar-save-btn,
+    .avatar-cancel-btn {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ===== АНИМАЦИИ ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}

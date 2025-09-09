@@ -1,0 +1,242 @@
+/* ===== ГЕРОЙ СЕКЦИЯ ДЛЯ УПРАЖНЕНИЙ ===== */
+.exercises-hero {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    padding: 4rem 0;
+    text-align: center;
+    margin-bottom: 4rem;
+    border-radius: 25px;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ===== СЕТКА УПРАЖНЕНИЙ ===== */
+.exercises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+.exercise-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 25px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-xl);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.exercise-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--gradient-accent);
+}
+
+.exercise-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+.exercise-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.exercise-icon {
+    font-size: 2.5rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%);
+    border-radius: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.exercise-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.exercise-content {
+    margin-bottom: 2rem;
+}
+
+.exercise-description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.exercise-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.exercise-difficulty {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.difficulty-badge {
+    background: var(--gradient-warning);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* ===== СООБЩЕНИЕ ОБ ОТСУТСТВИИ УПРАЖНЕНИЙ ===== */
+.no-exercises {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 25px;
+    box-shadow: var(--shadow-lg);
+    margin: 2rem 0;
+}
+
+.no-exercises-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.no-exercises h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.no-exercises p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 1024px) {
+    .exercises-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .exercises-hero {
+        padding: 3rem 0;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-description {
+        font-size: 1.1rem;
+    }
+    
+    .exercises-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .exercise-card {
+        padding: 2rem;
+    }
+    
+    .exercise-card-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .exercise-footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .exercise-card {
+        padding: 1.5rem;
+    }
+    
+    .exercise-icon {
+        font-size: 2rem;
+        padding: 0.75rem;
+    }
+    
+    .exercise-title {
+        font-size: 1.3rem;
+    }
+    
+    .exercise-description {
+        font-size: 1rem;
+    }
+    
+    .exercise-footer {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* ===== АНИМАЦИИ ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Задержки для анимаций карточек */
+.exercise-card:nth-child(1) { animation-delay: 0.1s; }
+.exercise-card:nth-child(2) { animation-delay: 0.2s; }
+.exercise-card:nth-child(3) { animation-delay: 0.3s; }
+.exercise-card:nth-child(4) { animation-delay: 0.4s; }
+.exercise-card:nth-child(5) { animation-delay: 0.5s; }
+.exercise-card:nth-child(6) { animation-delay: 0.6s; }

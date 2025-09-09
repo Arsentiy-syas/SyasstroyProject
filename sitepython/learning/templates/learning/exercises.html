@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Python Learning - Упражнения</title>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'learning/css/execises.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Герой секция для упражнений -->
+<section class="exercises-hero">
+    <div class="container">
+        <h1 class="hero-title">Практические упражнения</h1>
+        <p class="hero-description">
+            Закрепите свои знания на практике. Решайте задачи и улучшайте свои навыки программирования на Python.
+        </p>
+    </div>
+</section>
+
+<!-- Сетка упражнений -->
+<section class="exercises-section">
+    <div class="container">
+        {% if exercises %}
+            <div class="exercises-grid">
+                {% for exercise in exercises %}
+                    <div class="exercise-card fade-in-up">
+                        <div class="exercise-card-header">
+                            <div class="exercise-icon">
+                                💻
+                            </div>
+                            <h3 class="exercise-title">{{ exercise.title }}</h3>
+                        </div>
+                        
+                        <div class="exercise-content">
+                            <p class="exercise-description">
+                                {{ exercise.content|truncatewords:30 }}
+                            </p>
+                        </div>
+                        
+                        <div class="exercise-footer">
+                            <div class="exercise-difficulty">
+                                <span class="difficulty-badge">Легкий уровень</span>
+                            </div>
+                            <a href="{% url 'task_detail' listcat_id=exercise.id %}" class="btn btn-gradient-primary btn-sm">
+                                <span class="btn-icon">🚀</span>
+                                Начать решение
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-exercises">
+                <div class="no-exercises-icon">📝</div>
+                <h3>Упражнения пока недоступны</h3>
+                <p>Мы работаем над добавлением новых практических заданий. Скоро здесь появятся интересные задачи!</p>
+                <a href="{% url 'lessons' %}" class="btn btn-gradient-primary">
+                    <span class="btn-icon">📚</span>
+                    Вернуться к урокам
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

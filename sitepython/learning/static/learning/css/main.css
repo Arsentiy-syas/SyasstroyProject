@@ -1,0 +1,627 @@
+/* Убираем градиентную линию у карточек */
+.card::before {
+    display: none;
+}
+
+/* Также убираем градиентную линию у навигационных карточек */
+.nav-card::before {
+    display: none;
+}
+
+/* Убираем градиентную линию у feature-card */
+.feature-card::before {
+    display: none;
+}
+
+/* ===== ШАПКА БЕЗ ГРАДИЕНТНОЙ ЛИНИИ ===== */
+.header {
+    background: var(--bg-white); /* Белый фон вместо градиента */
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1); /* Легкая тень вместо градиента */
+    border-bottom: 1px solid var(--border-light);
+}
+
+.navbar-brand {
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--primary) !important; /* Цвет вместо градиента */
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: translateY(-1px);
+    color: var(--primary-dark) !important;
+}
+
+.brand-icon {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.brand-text {
+    color: var(--primary);
+    background: none !important; /* Убираем градиентный текст */
+    -webkit-text-fill-color: initial !important;
+}
+
+/* Навигационные ссылки */
+.nav-link {
+    font-weight: 600;
+    color: var(--text-secondary) !important; /* Темный цвет вместо белого */
+    padding: 0.75rem 1.25rem !important;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0.25rem;
+}
+
+.nav-link:hover {
+    color: var(--primary) !important;
+    background: rgba(102, 126, 234, 0.1); /* Легкий фон при наведении */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+}
+
+.nav-icon {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+.nav-link:hover .nav-icon {
+    color: var(--primary);
+}
+
+/* Кнопки авторизации */
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-outline-light {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    backdrop-filter: none;
+}
+
+.btn-outline-light:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.btn-gradient-primary {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+/* Информация пользователя */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.user-avatar:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: var(--glow-primary);
+}
+
+.user-name {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .navbar-collapse {
+        background: var(--bg-white);
+        padding: 1rem;
+        border-radius: 15px;
+        margin-top: 1rem;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border);
+    }
+    
+    .nav-link {
+        color: var(--text-primary) !important;
+        padding: 1rem !important;
+        margin: 0.25rem 0;
+        justify-content: center;
+    }
+    
+    .auth-section {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+        width: 100%;
+        justify-content: center;
+        flex-direction: column;
+    }
+    
+    .user-name {
+        color: var(--text-primary);
+    }
+}
+
+/* ===== ОБНОВЛЕННАЯ ЦВЕТОВАЯ ПАЛИТРА С ГРАДИЕНТАМИ ===== */
+:root {
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-success: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --gradient-warning: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    
+    --primary: #667eea;
+    --primary-dark: #5a67d8;
+    --primary-light: #7c8dea;
+    
+    --text-primary: #2d3748;
+    --text-secondary: #718096;
+    --text-light: #a0aec0;
+    
+    --bg-white: #ffffff;
+    --bg-light: #f7fafc;
+    --bg-lighter: #edf2f7;
+    
+    --border: #e2e8f0;
+    --border-light: #edf2f7;
+    
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+    
+    --glow-primary: 0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+/* ===== БАЗОВЫЕ СТИЛИ ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== ШАПКА С ГРАДИЕНТОМ ===== */
+.header {
+    background: var(--gradient-primary);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+}
+
+.navbar-brand {
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: white !important;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: translateY(-1px);
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
+}
+
+.brand-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.brand-text {
+    background: linear-gradient(135deg, #fff 0%, #e2e8f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Навигационные ссылки */
+.nav-link {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9) !important;
+    padding: 0.75rem 1.25rem !important;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0.25rem;
+}
+
+.nav-link:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-icon {
+    font-size: 1.2rem;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* ===== АВТОРИЗАЦИЯ ===== */
+.auth-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fff 0%, #e2e8f0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.user-avatar:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: var(--glow-primary);
+}
+
+.user-name {
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+/* ===== КНОПКИ С ГРАДИЕНТАМИ ===== */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: var(--shadow-md);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-gradient-primary {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.btn-gradient-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl), var(--glow-primary);
+    color: white;
+}
+
+.btn-outline-light {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+}
+
+.btn-sm {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.9rem;
+    border-radius: 12px;
+}
+
+.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 20px;
+}
+
+.btn-icon {
+    font-size: 1.1rem;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+/* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+.main-content {
+    flex: 1;
+    padding: 3rem 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ===== ПОДВАЛ С ГРАДИЕНТОМ ===== */
+.footer {
+    background: var(--gradient-primary);
+    padding: 3rem 0 2rem;
+    margin-top: auto;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.footer p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.footer-link:hover {
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+.footer-link:hover::after {
+    width: 100%;
+}
+
+/* ===== КАРТОЧКИ С ГРАДИЕНТАМИ ===== */
+.card {
+    background: var(--bg-white);
+    border: none;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--shadow-xl);
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 768px) {
+    .navbar-collapse {
+        background: var(--gradient-primary);
+        padding: 1rem;
+        border-radius: 15px;
+        margin-top: 1rem;
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .nav-link {
+        padding: 1rem !important;
+        margin: 0.25rem 0;
+        justify-content: center;
+    }
+    
+    .auth-section {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        width: 100%;
+        justify-content: center;
+        flex-direction: column;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    
+    .footer-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+    
+    .container {
+        padding: 0 1rem;
+    }
+}
+
+/* ===== АНИМАЦИИ И ЭФФЕКТЫ ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: var(--shadow-lg);
+    }
+    50% {
+        box-shadow: var(--glow-primary);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* ===== УТИЛИТЫ ===== */
+.text-center {
+    text-align: center;
+}
+
+.text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }

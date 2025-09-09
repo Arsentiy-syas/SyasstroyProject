@@ -1,0 +1,102 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+        <title>Python Learning - Изучение Python</title>
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'learning/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'learning/css/main.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <span class="brand-icon">🐍</span>
+                    <span class="brand-text">Python Learning</span>
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'lessons' %}">
+                                <span class="nav-icon">📚</span>
+                                Уроки
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:profile' %}">
+                                <span class="nav-icon">👤</span>
+                                Профиль
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <div class="auth-section">
+                        {% if user.is_authenticated %}
+                            <div class="user-info">
+                                <a href="{% url 'users:profile' %}" class="user-avatar">
+                                    {{ user.username|first|upper }}
+                                </a>
+                                <span class="user-name">Привет, {{ user.username }}</span>
+                            </div>
+                        {% else %}
+                            <div class="auth-buttons">
+                                <a href="{% url 'users:login' %}" class="btn btn-outline-light btn-sm auth-btn">
+                                    <span class="btn-icon">🔑</span>
+                                    Войти
+                                </a>
+                                <a href="{% url 'users:register' %}" class="btn btn-gradient-primary btn-sm auth-btn">
+                                    <span class="btn-icon">✨</span>
+                                    Регистрация
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main class="main-content">
+        <div class="container">
+            {% block content %}
+            <!-- Контент будет здесь -->
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="brand-icon">🐍</span>
+                    <span class="brand-text">Python Learning</span>
+                </div>
+                <p>&copy; 2025 Python Learning. Все права защищены.</p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Политика конфиденциальности</a>
+                    <a href="#" class="footer-link">Условия использования</a>
+                    <a href="#" class="footer-link">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Скрипты -->
+    <script src="{% static 'learning/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'learning/js/main.js' %}"></script>
+</body>
+</html>

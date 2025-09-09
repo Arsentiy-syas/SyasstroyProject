@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'learning/css/list_task.css' %}">
+      <style>
+        /* Временные inline стили для проверки */
+        .content-wrapper > :first-child {
+            display: block;
+            color: #2d3748;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(248, 250, 252, 0.5) 0%, rgba(241, 245, 249, 0.5) 100%);
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+            white-space: pre-wrap;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        form {
+            background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(241, 245, 249, 0.8) 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+{{ task.task }}
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p><button type="submit">Проверить</button></p>
+</form>
+
+
+{% endblock %}
+

@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Задание выполнено! - Python Learning</title>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Специфические стили для страницы успеха */
+.success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    text-align: center;
+    padding: 2rem;
+}
+
+.success-icon {
+    font-size: 8rem;
+    margin-bottom: 2rem;
+    animation: bounce 1s ease infinite, glow 2s ease-in-out infinite;
+    background: var(--gradient-success);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 4px 8px rgba(67, 233, 123, 0.3));
+}
+
+.success-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: var(--gradient-success);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.success-message {
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.success-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: var(--gradient-success);
+    opacity: 0;
+    pointer-events: none;
+    border-radius: 50%;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes confettiFall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .success-icon {
+        font-size: 6rem;
+    }
+    
+    .success-title {
+        font-size: 2.5rem;
+    }
+    
+    .success-message {
+        font-size: 1.1rem;
+    }
+    
+    .success-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .success-actions .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .success-icon {
+        font-size: 5rem;
+    }
+    
+    .success-title {
+        font-size: 2rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="success-container fade-in-up">
+    <div class="success-icon">🎉</div>
+    <h1 class="success-title">Поздравляем!</h1>
+    <p class="success-message">Вы успешно выполнили задание! Ваше решение правильное, и вы освоили новый концепт программирования на Python. Так держать!</p>
+    
+    <div class="success-actions">
+        <a href="{% url 'lessons' %}" class="btn btn-gradient-primary btn-lg">
+            <span class="btn-icon">📚</span>
+            К следующим урокам
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Создаем конфетти для праздничного эффекта
+document.addEventListener('DOMContentLoaded', function() {
+    createConfetti();
+});
+
+function createConfetti() {
+    const colors = [
+        'var(--primary)', 
+        'var(--primary-dark)', 
+        '#43e97b', 
+        '#38f9d7', 
+        '#4facfe', 
+        '#00f2fe'
+    ];
+    
+    for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animation = `confettiFall ${Math.random() * 3 + 2}s linear forwards`;
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        document.body.appendChild(confetti);
+    }
+}
+</script>
+{% endblock %}

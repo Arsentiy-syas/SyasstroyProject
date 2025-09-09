@@ -1,0 +1,306 @@
+/* ===== СТИЛИ ДЛЯ СТРАНИЦЫ ЗАДАНИЯ (без изменения HTML) ===== */
+.task-page {
+    min-height: 80vh;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.task-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Стилизация текста задания */
+.task-page > :first-child {
+    display: block;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.5) 0%, rgba(241, 245, 249, 0.5) 100%);
+    border-radius: 15px;
+    border-left: 4px solid var(--primary);
+    white-space: pre-wrap;
+    box-shadow: var(--shadow-md);
+}
+
+/* ===== СТИЛИЗАЦИЯ ФОРМЫ ===== */
+.task-page form {
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(241, 245, 249, 0.8) 100%);
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Стилизация параграфов формы */
+.task-page form p {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Стилизация label */
+.task-page form label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.task-page form label::before {
+    content: '📝';
+    font-size: 1.2rem;
+}
+
+/* Стилизация текстового поля */
+.task-page form textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 1.5rem;
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 1rem;
+    line-height: 1.5;
+    resize: vertical;
+    transition: all 0.3s ease;
+    background: var(--bg-white);
+    box-shadow: var(--shadow-sm);
+}
+
+.task-page form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Стилизация кнопки */
+.task-page form p:last-child {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.task-page form button {
+    padding: 1.25rem 3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 20px;
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-lg);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.task-page form button:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-xl), var(--glow-primary);
+}
+
+.task-page form button:active {
+    transform: translateY(-1px);
+}
+
+.task-page form button::before {
+    content: '🚀';
+    font-size: 1.2rem;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 1024px) {
+    .task-container {
+        max-width: 800px;
+    }
+}
+
+@media (max-width: 768px) {
+    .task-page {
+        padding: 2rem 0;
+    }
+    
+    .task-container {
+        padding: 0 1rem;
+    }
+    
+    .task-page > :first-child {
+        font-size: 1.1rem;
+        padding: 1.5rem;
+        margin: 0 1rem 2rem 1rem;
+    }
+    
+    .task-page form {
+        padding: 2rem;
+        margin: 0 1rem;
+    }
+    
+    .task-page form textarea {
+        min-height: 150px;
+        padding: 1rem;
+    }
+    
+    .task-page form button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .task-page > :first-child {
+        font-size: 1rem;
+        padding: 1.25rem;
+        margin: 0 0.5rem 1.5rem 0.5rem;
+    }
+    
+    .task-page form {
+        padding: 1.5rem;
+        margin: 0 0.5rem;
+    }
+    
+    .task-page form textarea {
+        min-height: 120px;
+        font-size: 0.9rem;
+    }
+    
+    .task-page form button {
+        width: 100%;
+        justify-content: center;
+        padding: 1rem;
+    }
+}
+
+/* ===== АНИМАЦИИ ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.task-page > :first-child {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.task-page form {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.task-page form button {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ===== ДОПОЛНИТЕЛЬНЫЕ УЛУЧШЕНИЯ ===== */
+/* Убираем стандартные отступы и бордюры */
+.task-page form br {
+    display: none;
+}
+
+/* Скрываем пустые параграфы если есть */
+.task-page form p:empty {
+    display: none;
+}
+
+/* Стили для ошибок валидации */
+.task-page .errorlist {
+    background: linear-gradient(135deg, rgba(254, 226, 226, 0.3) 0%, rgba(254, 215, 215, 0.3) 100%);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    list-style: none;
+}
+
+.task-page .errorlist li {
+    color: #dc2626;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.task-page .errorlist li::before {
+    content: '⚠️';
+}
+
+/* Стили для успешной отправки */
+.task-page .success {
+    background: linear-gradient(135deg, rgba(209, 250, 229, 0.3) 0%, rgba(167, 243, 208, 0.3) 100%);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.task-page .success::before {
+    content: '✅';
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* ===== ПЕРЕМЕННЫЕ CSS ===== */
+:root {
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    
+    --primary: #667eea;
+    --primary-dark: #5a67d8;
+    
+    --text-primary: #2d3748;
+    --text-secondary: #718096;
+    --text-light: #a0aec0;
+    
+    --bg-white: #ffffff;
+    --bg-light: #f7fafc;
+    --bg-lighter: #edf2f7;
+    
+    --border: #e2e8f0;
+    --border-light: #edf2f7;
+    
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+    
+    --glow-primary: 0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Базовые стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+}

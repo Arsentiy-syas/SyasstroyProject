@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Уроки Python - Python Learning</title>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'learning/css/list_post.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="lessons-hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Уроки Python</h1>
+            <p class="hero-description">
+                Изучайте Python шаг за шагом. От основ до продвинутых концепций.
+                Практические примеры и понятные объяснения помогут вам освоить язык программирования.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="lessons-section">
+    <div class="container">
+        <div class="lessons-grid">
+            {% for category in categories %}
+            <div class="lesson-card fade-in-up">
+                <div class="lesson-card-header">
+                    <div class="lesson-icon">
+                        {% if forloop.counter == 1 %}🐍{% endif %}
+                        {% if forloop.counter == 2 %}🔢{% endif %}
+                        {% if forloop.counter == 3 %}📊{% endif %}
+                        {% if forloop.counter == 4 %}🔄{% endif %}
+                        {% if forloop.counter == 5 %}📦{% endif %}
+                        {% if forloop.counter > 5 %}📚{% endif %}
+                    </div>
+                    <h3 class="lesson-title">{{ category.title }}</h3>
+                </div>
+                <div class="lesson-content">
+                    <p class="lesson-description">
+                        {{ category.context|truncatewords:30 }}
+                    </p>
+                </div>
+                <div class="lesson-footer">
+                    <span class="lesson-stats">
+                        <span class="stat-item">⭐ {{ forloop.counter|add:3 }}.{% cycle '5' '8' '7' '9' '6' %}</span>
+                        <span class="stat-item">⏱️ {{ forloop.counter|add:2 }}0 мин</span>
+                        <span class="stat-item">🔢 {{ forloop.counter|add:4 }} заданий</span>
+                    </span>
+                    <a href="{% url 'post' cat_id=category.id %}" class="btn btn-gradient-primary btn-sm">
+                        <span class="btn-icon">💻</span>
+                        Упражнения
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-lessons">
+                <div class="no-lessons-icon">📚</div>
+                <h3>Уроки пока не добавлены</h3>
+                <p>Скоро здесь появятся новые материалы для изучения</p>
+                <a href="{% url 'home' %}" class="btn btn-gradient-primary mt-3">
+                    <span class="btn-icon">🏠</span>
+                    На главную
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

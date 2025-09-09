@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'learning/css/profile.css' %}">
+{% endblock %}
+
+{% block title %}Профиль - Python Learning{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-background">
+        <div class="profile-shape shape-1"></div>
+        <div class="profile-shape shape-2"></div>
+        <div class="profile-shape shape-3"></div>
+    </div>
+
+    <div class="profile-header fade-in-up">
+        <div class="avatar-container">
+            <div class="profile-avatar" id="avatarPreview">
+                <img src="{{ user.image.avatar.url }}" alt="{{ user.username }}" class="avatar-image" id="avatarImage">
+            </div>
+            <form method="post" enctype="multipart/form-data" class="avatar-form" id="avatarForm">
+                {% csrf_token %}
+                <input type="file" id="avatarInput" name="avatar" accept="image/*" class="avatar-input" hidden>
+                <div class="avatar-buttons">
+                    <label for="avatarInput" class="btn btn-outline-primary avatar-change-btn">
+                        <span class="btn-icon">📷</span>
+                        Сменить аватар
+                    </label>
+                    <button type="button" class="btn btn-gradient-primary avatar-save-btn" id="avatarSaveBtn" disabled>
+                        <span class="btn-icon">💾</span>
+                        Сохранить
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary avatar-cancel-btn" id="avatarCancelBtn" style="display: none;">
+                        <span class="btn-icon">❌</span>
+                        Отмена
+                    </button>
+                </div>
+            </form>
+            <div class="avatar-messages" id="avatarMessages">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    <div class="alert-icon">
+                        {% if message.tags == 'success' %}✅{% else %}⚠️{% endif %}
+                    </div>
+                    <div class="alert-content">{{ message }}</div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <h1 class="profile-title">Профиль пользователя</h1>
+        <p class="profile-subtitle">Добро пожаловать, {{ user.username }}!</p>
+    </div>
+
+    <div class="profile-content">
+        <div class="profile-card fade-in-up" style="animation-delay: 0.1s;">
+            <div class="profile-card-header">
+                <div class="profile-card-icon">👤</div>
+                <h3>Личная информация</h3>
+            </div>
+            <div class="profile-info">
+                <div class="info-item">
+                    <span class="info-label">Имя пользователя:</span>
+                    <span class="info-value">{{ user.username }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value">{{ user.email|default:"Не указан" }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Дата регистрации:</span>
+                    <span class="info-value">{{ user.date_joined|date:"d.m.Y" }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-card fade-in-up" style="animation-delay: 0.2s;">
+            <div class="profile-card-header">
+                <div class="profile-card-icon">📊</div>
+                <h3>Статистика обучения</h3>
+            </div>
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Пройдено уроков</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Решено заданий</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Достижения</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-card fade-in-up" style="animation-delay: 0.3s;">
+            <div class="profile-card-header">
+                <div class="profile-card-icon">⚡</div>
+                <h3>Быстрые действия</h3>
+            </div>
+            <div class="profile-actions">
+                <a href="{% url 'lessons' %}" class="btn btn-outline-primary btn-action">
+                    <span class="btn-icon">📚</span>
+                    Продолжить обучение
+                </a>
+                </a>
+                <form method="post" action="{% url 'users:logout' %}" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-gradient-danger btn-action">
+                        <span class="btn-icon">🚪</span>
+                        Выйти из аккаунта
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const avatarInput = document.getElementById('avatarInput');
+    const avatarImage = document.getElementById('avatarImage');
+    const avatarSaveBtn = document.getElementById('avatarSaveBtn');
+    const avatarCancelBtn = document.getElementById('avatarCancelBtn');
+    const avatarForm = document.getElementById('avatarForm');
+    const avatarMessages = document.getElementById('avatarMessages');
+    const originalAvatarSrc = avatarImage.src;
+    let selectedFile = null;
+
+    // Предпросмотр аватара
+    avatarInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            // Проверяем размер файла (максимум 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                showMessage('error', 'Размер файла не должен превышать 5MB');
+                this.value = '';
+                return;
+            }
+
+            // Проверяем тип файла
+            if (!file.type.startsWith('image/')) {
+                showMessage('error', 'Пожалуйста, выберите изображение');
+                this.value = '';
+                return;
+            }
+
+            selectedFile = file;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                avatarImage.src = e.target.result;
+                avatarSaveBtn.disabled = false;
+                avatarCancelBtn.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Отмена выбора аватара
+    avatarCancelBtn.addEventListener('click', function() {
+        avatarImage.src = originalAvatarSrc;
+        avatarInput.value = '';
+        avatarSaveBtn.disabled = true;
+        avatarCancelBtn.style.display = 'none';
+        selectedFile = null;
+    });
+
+    // Сохранение аватара через AJAX
+    avatarSaveBtn.addEventListener('click', function() {
+        if (!selectedFile) {
+            showMessage('error', 'Сначала выберите изображение');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('avatar', selectedFile);
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+        // Показываем индикатор загрузки
+        avatarSaveBtn.disabled = true;
+        const originalText = avatarSaveBtn.innerHTML;
+        avatarSaveBtn.innerHTML = '<span class="btn-icon">⏳</span> Загрузка...';
+
+        // Отправляем AJAX запрос
+        fetch('{% url "users:profile" %}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showMessage('success', 'Аватар успешно обновлен!');
+                // Обновляем оригинальный источник
+                avatarImage.src = data.avatar_url + '?t=' + new Date().getTime();
+                originalAvatarSrc = avatarImage.src;
+                // Сбрасываем форму
+                avatarInput.value = '';
+                avatarSaveBtn.disabled = true;
+                avatarCancelBtn.style.display = 'none';
+                selectedFile = null;
+            } else {
+                showMessage('error', data.error || 'Ошибка при загрузке аватара');
+            }
+        })
+        .catch(error => {
+            showMessage('error', 'Ошибка сети: ' + error.message);
+        })
+        .finally(() => {
+            // Восстанавливаем кнопку
+            avatarSaveBtn.disabled = false;
+            avatarSaveBtn.innerHTML = originalText;
+        });
+    });
+
+    // Показ сообщений
+    function showMessage(type, text) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `alert alert-${type}`;
+        messageDiv.innerHTML = `
+            <div class="alert-icon">${type === 'success' ? '✅' : '⚠️'}</div>
+            <div class="alert-content">${text}</div>
+        `;
+        
+        avatarMessages.appendChild(messageDiv);
+        
+        // Автоматическое скрытие через 5 секунд
+        setTimeout(() => {
+            messageDiv.style.opacity = '0';
+            messageDiv.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => messageDiv.remove(), 500);
+        }, 5000);
+    }
+
+    // Автоматически скрываем существующие сообщения
+    const existingMessages = avatarMessages.querySelectorAll('.alert');
+    existingMessages.forEach(message => {
+        setTimeout(() => {
+            message.style.opacity = '0';
+            message.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => message.remove(), 500);
+        }, 5000);
+    });
+});
+</script>
+{% endblock %}
