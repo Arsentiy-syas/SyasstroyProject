@@ -1,7 +1,7 @@
 from django import forms
 from django.shortcuts import redirect
 from django.core.exceptions import ValidationError
-from .models import Tasks
+from .models import Tasks, AddLesson
 
 class TaskForm(forms.ModelForm):
     text_input = forms.CharField(label='Пишите код здась', widget=forms.Textarea)
@@ -21,3 +21,9 @@ class TaskForm(forms.ModelForm):
             raise ValidationError('Подумай еще')
 
         return text_input 
+
+
+class AddLessonForm(forms.ModelForm):
+    class Meta:
+        model = AddLesson
+        fields = ['title', 'context']

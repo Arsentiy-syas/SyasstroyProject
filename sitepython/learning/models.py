@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 
 class Categories(models.Model):
     title = models.CharField(max_length=100, blank=False, verbose_name='Категории')
@@ -26,6 +27,13 @@ class Tasks(models.Model):
     task = models.CharField(verbose_name='Задания')
     example_output = models.CharField(verbose_name='Пример выхода')
     listcat = models.ForeignKey(ListExercises, on_delete=models.CASCADE, null=True, related_name='listtask')
+
+
+class AddLesson(models.Model):
+    title = models.CharField(max_length=100, verbose_name='Название урока')
+    context = models.CharField(max_length=255, verbose_name='Описание')
+    author = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='posts', null=True)
+
 
     
 
