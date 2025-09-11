@@ -1,0 +1,443 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Python Learning - Добавление урока</title>
+{% endblock %}
+
+{% block extra_css %}
+    <style>
+        /* Специфические стили для страницы добавления урока */
+        .add-lesson-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 25px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .add-lesson-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+        
+        .add-lesson-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .add-lesson-title {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .add-lesson-description {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-label-icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        /* СТИЛИ ДЛЯ ТЕКСТОВЫХ ПОЛЕЙ */
+        .form-control {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fff;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+        }
+        
+        .form-control::placeholder {
+            color: var(--text-light);
+            font-weight: 400;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .form-control:hover {
+            border-color: var(--primary-light);
+        }
+        
+        /* СТИЛИ ДЛЯ TEXTAREA */
+        textarea.form-control {
+            min-height: 180px;
+            resize: vertical;
+            line-height: 1.6;
+            padding: 1.5rem;
+        }
+        
+        /* СТИЛИ ДЛЯ SELECT */
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23667eea' viewBox='0 0 16 16'%3E%3Cpath d='M8 12L2 6h12L8 12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1.2rem center;
+            background-size: 16px;
+            padding-right: 3rem;
+            cursor: pointer;
+        }
+        
+        /* СТИЛИ ДЛЯ ЧЕКБОКСОВ И РАДИОКНОПОК */
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: var(--bg-lighter);
+        }
+        
+        .form-check:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            appearance: none;
+            background: white;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .form-check-input:checked {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .form-check-input:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .form-check-label {
+            font-weight: 500;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+        
+        /* СТИЛИ ДЛЯ ФАЙЛОВОГО ИНПУТА */
+        .file-input-container {
+            position: relative;
+        }
+        
+        .file-input-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            border: 2px dashed var(--border);
+            border-radius: 15px;
+            background: var(--bg-lighter);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .file-input-label:hover {
+            border-color: var(--primary);
+            background: rgba(102, 126, 234, 0.05);
+            transform: translateY(-2px);
+        }
+        
+        .file-input-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .file-input-text {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        /* СТИЛИ ДЛЯ ОШИБОК */
+        .form-error {
+            color: #e53e3e;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            background: rgba(229, 62, 62, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid #e53e3e;
+        }
+        
+        .form-error ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        /* СТИЛИ ДЛЯ КНОПКИ */
+        .btn-add-lesson {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            width: 100%;
+            margin-top: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-add-lesson::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-add-lesson:hover::before {
+            left: 100%;
+        }
+        
+        .btn-add-lesson:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl), var(--glow-primary);
+        }
+        
+        .btn-add-lesson:active {
+            transform: translateY(-1px);
+        }
+        
+        /* СТИЛИ ДЛЯ ПОДСКАЗОК */
+        .form-help {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid var(--primary-light);
+        }
+        
+        /* Анимация появления формы */
+        @keyframes formAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .add-lesson-container {
+            animation: formAppear 0.6s ease-out;
+        }
+        
+        .form-group {
+            animation: formAppear 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .add-lesson-container {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+                border-radius: 20px;
+            }
+            
+            .add-lesson-title {
+                font-size: 2rem;
+            }
+            
+            .add-lesson-description {
+                font-size: 1.1rem;
+            }
+            
+            .btn-add-lesson {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+            
+            .form-control {
+                padding: 1rem 1.2rem;
+            }
+            
+            .file-input-label {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .add-lesson-title {
+                font-size: 1.8rem;
+            }
+            
+            .add-lesson-description {
+                font-size: 1rem;
+            }
+            
+            .form-label {
+                font-size: 1rem;
+            }
+            
+            .btn-add-lesson {
+                font-size: 1rem;
+                padding: 0.9rem 1.5rem;
+            }
+            
+            .form-check {
+                padding: 0.6rem 0.8rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="add-lesson-container">
+        <div class="add-lesson-header">
+            <h1 class="add-lesson-title">Добавление нового урока</h1>
+            <p class="add-lesson-description">Создайте новый учебный материал для сообщества Python Learning</p>
+        </div>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+        
+            <div class="form-error">{{ form.non_field_errors }}</div>
+            
+            {% for f in form %}
+            <div class="form-group">
+                <label class="form-label" for="{{ f.id_for_label }}">
+                    {% if forloop.first %}
+                    <span class="form-label-icon">📝</span>
+                    {% elif "content" in f.name %}
+                    <span class="form-label-icon">📄</span>
+                    {% elif "category" in f.name %}
+                    <span class="form-label-icon">📂</span>
+                    {% elif "difficulty" in f.name %}
+                    <span class="form-label-icon">📊</span>
+                    {% elif "file" in f.name or "image" in f.name %}
+                    <span class="form-label-icon">🖼️</span>
+                    {% else %}
+                    <span class="form-label-icon">✨</span>
+                    {% endif %}
+                    {{ f.label }}
+                </label>
+                
+                {% if f.field.widget.input_type == 'select' %}
+                    {{ f }}
+                {% elif f.field.widget.input_type == 'textarea' %}
+                    {{ f }}
+                {% elif f.field.widget.input_type == 'file' %}
+                    <div class="file-input-container">
+                        <label class="file-input-label" for="{{ f.id_for_label }}">
+                            <span class="file-input-icon">📁</span>
+                            <span class="file-input-text">Нажмите для выбора файла или перетащите его сюда</span>
+                        </label>
+                        {{ f }}
+                    </div>
+                {% else %}
+                    {{ f }}
+                {% endif %}
+                
+                {% if f.help_text %}
+                <p class="form-help">{{ f.help_text }}</p>
+                {% endif %}
+                <div class="form-error">{{ f.errors }}</div>
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn-add-lesson">
+                <span class="btn-icon">➕</span>
+                Опубликовать урок
+            </button>
+        </form>
+    </div>
+{% endblock %}
