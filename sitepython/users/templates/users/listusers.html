@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Список пользователей - Python Learning</title>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'learning/css/users_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="users-container">
+    <div class="users-header">
+        <h1>Список пользователей</h1>
+        <p>Найдите других участников сообщества Python Learning</p>
+    </div>
+
+    <div class="users-search">
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Поиск пользователей..." class="search-input">
+            <span class="search-icon">🔍</span>
+        </div>
+    </div>
+
+    <div class="users-grid" id="users-grid">
+        {% for user in users %}
+        <div class="user-card" data-username="{{ user.username }}">
+            <div class="user-card-header">
+                <div class="user-avatar">
+                    {{ user.username|first|upper }}
+                </div>
+                <div class="user-status"></div>
+            </div>
+            
+            <div class="user-info">
+                <h3 class="user-name">{{ user.get_full_name|default:user.username }}</h3>
+                <p class="user-username">@{{ user.username }}</p>
+                
+                {% if user.email %}
+                <p class="user-email">
+                    <span class="icon">📧</span>
+                    {{ user.email }}
+                </p>
+                {% endif %}
+                
+                {% if user.date_joined %}
+                <p class="user-joined">
+                    <span class="icon">📅</span>
+                    Присоединился: {{ user.date_joined|date:"d.m.Y" }}
+                </p>
+                {% endif %}
+            </div>
+
+            <div class="user-actions">
+                <a href="{% url 'users:profile'%}" class="btn btn-view-profile">
+                    <span class="btn-icon">👤</span>
+                    Профиль
+                </a>
+                
+                {% if user != request.user %}
+                <button class="btn btn-follow" data-user-id="{{ user.id }}">
+                </button>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="no-users">
+            <div class="no-users-icon">👥</div>
+            <h3>Пользователи не найдены</h3>
+            <p>Будьте первым, кто присоединится к нашему сообществу!</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if users.has_other_pages %}
+    <div class="users-pagination">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if users.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ users.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for num in users.paginator.page_range %}
+                    {% if users.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if users.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ users.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Поиск пользователей
+    const searchInput = document.getElementById('search-input');
+    const usersGrid = document.getElementById('users-grid');
+    const userCards = document.querySelectorAll('.user-card');
+
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+        
+        userCards.forEach(card => {
+            const username = card.dataset.username.toLowerCase();
+            const userName = card.querySelector('.user-name').textContent.toLowerCase();
+            const userUsername = card.querySelector('.user-username').textContent.toLowerCase();
+            
+            if (username.includes(searchTerm) || userName.includes(searchTerm) || userUsername.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+
+    // Обработка подписки
+    const followButtons = document.querySelectorAll('.btn-follow');
+    followButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const userId = this.dataset.userId;
+            // Здесь можно добавить AJAX запрос для подписки
+            alert(`Подписаться на пользователя с ID: ${userId}`);
+            this.innerHTML = '<span class="btn-icon">✓</span>Подписан';
+            this.classList.add('btn-following');
+            this.classList.remove('btn-follow');
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -9,9 +9,9 @@ from django.contrib import messages
 
 class LearningHome(TemplateView):
     template_name = 'learning/index.html'
-    title_page = 'Главная страница'
+    extra_context = {'title': 'Главная страница'}
     
- 
+    
 def show_categories(request):
     categories = Categories.objects.all().only('title', 'context')
 

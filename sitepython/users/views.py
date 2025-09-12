@@ -4,7 +4,8 @@ from django.urls import reverse_lazy, reverse
 from django.shortcuts import redirect
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import get_user_model, logout
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
+from django.contrib.auth.models import User
 from .forms import RegisterUserForm, LoginUserForm, ProfileUserForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -39,5 +40,14 @@ class ProfileUser(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
+
+class ListUsers(ListView):
+    model = User
+    template_name = 'users/listusers.html'
+    context_object_name = 'users'
+    extra_context = {'title': 'Список пользователей'}
+
+    def get_queryset(self):
+        return self.model.objects.all()
 
 
