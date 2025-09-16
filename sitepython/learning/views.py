@@ -58,3 +58,6 @@ class AddLessonView(LoginRequiredMixin, CreateView):
 
 class Happy(TemplateView):
     template_name = 'learning/happy.html'
+
+class MicroView(DetailView):
+    title_page = {'class': 'form-input'}
